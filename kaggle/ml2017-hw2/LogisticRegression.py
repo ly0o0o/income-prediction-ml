@@ -69,7 +69,7 @@ def valid(w, b, X_valid, Y_valid):
     y = sigmoid(z)
     y_ = np.around(y)
     result = (Y_valid == y_)
-    print "Validation acc = %f" % (float(result.sum()) / valid_data_size)
+    print("Validation acc = %f" % (float(result.sum()) / valid_data_size))
     return
 
 
@@ -95,12 +95,12 @@ def train(X_train, Y_train, save_dir):
     for epoch in range(1, epoch_num):
         # do validation and parameter saving
         if (epoch) % save_param_iter == 0:
-            print '====Saving Param at epoch %d====' % epoch
+            print('====Saving Param at epoch %d====' % epoch)
             if not os.path.exists(save_dir):
                 os.mkdir(save_dir)
             np.savetxt(os.path.join(save_dir, 'w'), w)
             np.savetxt(os.path.join(save_dir, 'b'), b)
-            print 'epoch avg loss = %f' % (total_loss / (float(save_param_iter)*train_data_size))
+            print('epoch avg loss = %f' % (total_loss / (float(save_param_iter)*train_data_size)))
             total_loss = 0.0
 
             valid(w, b, X_valid, Y_valid)
@@ -133,7 +133,7 @@ def infer(X_test, save_dir):
     test_data_size = len(X_test)
 
     # load parameters
-    print "====loading param===="
+    print("====loading param====")
     w = np.loadtxt(os.path.join(save_dir, 'w'))
     b = np.loadtxt(os.path.join(save_dir, 'b'))
 

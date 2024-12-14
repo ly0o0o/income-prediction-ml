@@ -65,7 +65,7 @@ def sigmoid(z):
 def valid(X_valid, Y_valid, mu1, mu2, shared_sigma, N1, N2):
 
     sigma_inverse = np.linalg.det(shared_sigma)
-    print sigma_inverse
+    print(sigma_inverse)
     w = np.dot((mu1 - mu2), sigma_inverse)
     x = X_valid.T
     b = (-0.5) * np.dot(np.dot([mu1], sigma_inverse), mu1) + (0.5) * np.dot(np.dot([mu2], sigma_inverse), mu2) + np.log(
@@ -74,7 +74,7 @@ def valid(X_valid, Y_valid, mu1, mu2, shared_sigma, N1, N2):
     y = sigmoid(a)
     y_ = np.around(y)
     result = (np.squeeze(Y_valid) == y_)
-    print "Validation acc = %f" % (float(result.sum()) / result.shape[0])
+    print("Validation acc = %f" % (float(result.sum()) / result.shape[0]))
     return
 
 
@@ -111,15 +111,15 @@ def train(X_all, Y_all, save_dir):
     N1 = cnt1
     N2 = cnt2
 
-    print "====saving param===="
+    print("====saving param====")
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
     param_dict = {'mu1':mu1, 'mu2':mu2, 'shared_sigma':shared_sigma, 'N1':[N1], 'N2':[N2]}
     for key in sorted(param_dict):
-        print 'saving %s' % key
+        print('saving %s' % key)
         np.savetxt(os.path.join(save_dir, ('%s' % key)), param_dict[key])
 
-    print "====validating===="
+    print("====validating====")
     valid(X_valid, Y_valid, mu1, mu2, shared_sigma, N1, N2)
     return
 
